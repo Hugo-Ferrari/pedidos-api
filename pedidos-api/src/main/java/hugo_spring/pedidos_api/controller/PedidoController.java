@@ -20,7 +20,7 @@ public class PedidoController {
 
     }
     @PostMapping
-    public ResponseEntity<?> criarPedidos(@RequestBody Pedido pedido){
+    public ResponseEntity<Pedido> criarPedidos(@RequestBody Pedido pedido){
         pedidoService.criarPedidos(pedido);
         return ResponseEntity.ok().build();
     }

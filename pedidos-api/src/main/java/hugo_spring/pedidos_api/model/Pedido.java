@@ -23,5 +23,8 @@ public class Pedido {
 
     private LocalDateTime dataPedido;
 
+    private Double total;
+
+
 
 }

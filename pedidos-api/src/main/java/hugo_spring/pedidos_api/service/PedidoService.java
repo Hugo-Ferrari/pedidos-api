@@ -25,29 +25,51 @@ public class PedidoService {
     @Autowired
     private ProdutoRepository produtoRepository;
 
-    public List<Pedido> listaDePedidos(){
+    public List<Pedido> listaDePedidos() {
         return pedidoRepository.findAll();
     }
 
-    public void criarPedidos(Pedido pedido){
+    public void criarPedidos(Pedido pedido) {
+
+        if (pedido == null) {
+            throw new RuntimeException("Pedido não pode ser nulo");
+        }
+
+        if (pedido.getItemPedidos() == null || pedido.getItemPedidos().isEmpty()) {
+            throw new RuntimeException("Pedido precisa ter pelo menos um item");
+        }
+
         Usuario usuario = usuarioRepository.findById(pedido.getUsuario().getId()).orElseThrow();
 
-        Pedido novoPedido= new Pedido();
+        Pedido novoPedido = new Pedido();
         novoPedido.setUsuario(usuario);
         novoPedido.setDataPedido(LocalDateTime.now());
 
-
         List<ItemPedido> itemPedidos = new ArrayList<>();
-        for(ItemPedido itemPedidoRecebido : pedido.getItemPedidos()){
+        double totalPedido = 0;
+
+        for (ItemPedido itemPedidoRecebido : pedido.getItemPedidos()) {
+
             Produto produto = produtoRepository.findById(itemPedidoRecebido.getProduto().getId()).orElseThrow();
+
+            if (itemPedidoRecebido.getQuantidade() <= 0) {
+                throw new RuntimeException("Quantidade inválida");
+            }
+
             ItemPedido novoItemPedido = new ItemPedido();
             novoItemPedido.setProduto(produto);
             novoItemPedido.setQuantidade(itemPedidoRecebido.getQuantidade());
             novoItemPedido.setPrecoMomento(produto.getPreco());
             novoItemPedido.setPedido(novoPedido);
+
+            totalPedido += novoItemPedido.getPrecoMomento() * novoItemPedido.getQuantidade();
+
             itemPedidos.add(novoItemPedido);
         }
+
         novoPedido.setItemPedidos(itemPedidos);
+        novoPedido.setTotal(totalPedido);
+
         pedidoRepository.save(novoPedido);
     }
 }
