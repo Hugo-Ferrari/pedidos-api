@@ -7,7 +7,7 @@ API REST para gerenciamento de pedidos desenvolvida com Java e Spring Boot.
 - Java 21
 - Spring Boot 4
 - Spring Data JPA
-- H2 Database
+- PostgreSQL
 - Swagger (OpenAPI 3)
 - Maven
 - Lombok
@@ -27,6 +27,19 @@ API REST para gerenciamento de pedidos desenvolvida com Java e Spring Boot.
 ### Pré-requisitos
 - Java 21+
 - Maven
+- PostgreSQL instalado e rodando
+
+### Configuração do banco de dados
+
+Crie um banco de dados no PostgreSQL:
+   CREATE DATABASE pedidos_api;
+
+Configure as credenciais no arquivo src/main/resources/application.yml:
+   spring:
+     datasource:
+       url: jdbc:postgresql://localhost:5432/pedidos-api
+       username: postgres
+       password: sua_senha
 
 ### Passos
 
@@ -36,10 +49,12 @@ API REST para gerenciamento de pedidos desenvolvida com Java e Spring Boot.
 2. Entre na pasta
    cd pedidos-api
 
-3. Rode o projeto
+3. Configure o banco de dados conforme instruções acima
+
+4. Rode o projeto
    ./mvnw spring-boot:run
 
-4. Acesse a documentação
+5. Acesse a documentação
    http://localhost:8080/swagger-ui/index.html
 
 ## Endpoints
