@@ -31,13 +31,13 @@ public class UsuarioController {
     }
 
     @PostMapping("/auth/register")
-    public Usuario RegistrarUsuario(@RequestBody Usuario usuario ){ // temos que digitar no body o que vamos adicionar
+    public Usuario RegistrarUsuario(@RequestBody Usuario usuario ){
         return usuarioService.registrarUsuario(usuario);
 
     }
 
     @PostMapping("/auth/login")
-    public Usuario EntrarComUsuario(@RequestBody Usuario usuario){
+    public String EntrarComUsuario(@RequestBody Usuario usuario){
         return usuarioService.LoginUsuario(usuario);
     }
 

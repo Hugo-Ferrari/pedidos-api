@@ -2,6 +2,7 @@ package hugo_spring.pedidos_api.service;
 
 import hugo_spring.pedidos_api.model.Usuario;
 import hugo_spring.pedidos_api.repository.UsuarioRepository;
+import hugo_spring.pedidos_api.security.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,9 @@ public class UsuarioService {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
+
+    @Autowired
+    private JwtUtil jwtUtil;
 
     public List<Usuario> listaDeUsuario() {
         return usuarioRepository.findByAtivoTrue();
@@ -39,7 +43,7 @@ public class UsuarioService {
         return usuarioRepository.save(usuario);
     }
 
-    public Usuario LoginUsuario(Usuario usuario){
+    public String LoginUsuario(Usuario usuario){
         Usuario usuarioEncontrado =  usuarioRepository.findByEmail(usuario.getEmail());
         if(usuarioEncontrado == null){
             throw new RuntimeException("Email inexistente");
@@ -47,6 +51,6 @@ public class UsuarioService {
         if(!usuarioEncontrado.getSenha().equals(usuario.getSenha())){
             throw new RuntimeException("Senha incorreta");
         }
-        return usuarioEncontrado;
+        return jwtUtil.generateToken(usuarioEncontrado.getEmail());
     }
 }
