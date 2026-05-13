@@ -8,18 +8,19 @@ API REST para gerenciamento de pedidos desenvolvida com Java e Spring Boot.
 - Spring Boot 4
 - Spring Data JPA
 - PostgreSQL
+- Spring Security + JWT
 - Swagger (OpenAPI 3)
 - Maven
 - Lombok
 
 ## Funcionalidades
 
-- Cadastro e login de usuários
-- CRUD completo de produtos
-- Soft delete de produtos e usuários
+- Cadastro e login de usuários com autenticação JWT
+- CRUD completo de produtos com soft delete
 - Sistema de pedidos com múltiplos itens
 - Cálculo automático do total do pedido
 - Preço capturado no momento da compra
+- Rotas protegidas por token JWT
 - Documentação automática com Swagger
 
 ## Como rodar localmente
@@ -61,20 +62,20 @@ Configure as credenciais no arquivo src/main/resources/application.yml:
 
 ### Usuários
 - POST /users/auth/register — cadastrar usuário
-- POST /users/auth/login — login
-- GET /users — listar usuários
-- DELETE /users/{id} — deletar usuário (soft delete)
+- POST /users/auth/login — retorna token JWT
+- GET /users — listar usuários (autenticado)
+- DELETE /users/{id} — soft delete (autenticado)
 
 ### Produtos
-- POST /products — criar produto
-- GET /products — listar produtos ativos
-- PUT /products/{id} — atualizar produto completo
-- PATCH /products/{id} — atualizar produto parcialmente
-- DELETE /products/{id} — deletar produto (soft delete)
+- POST /products — criar produto (autenticado)
+- GET /products — listar produtos ativos (autenticado)
+- PUT /products/{id} — atualizar completo (autenticado)
+- PATCH /products/{id} — atualizar parcial (autenticado)
+- DELETE /products/{id} — soft delete (autenticado)
 
 ### Pedidos
-- POST /orders — criar pedido
-- GET /orders — listar pedidos
+- POST /orders — criar pedido (autenticado)
+- GET /orders — listar pedidos (autenticado)
 
 ## Autor
 
