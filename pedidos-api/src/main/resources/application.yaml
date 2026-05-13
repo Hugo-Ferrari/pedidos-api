@@ -3,9 +3,9 @@ spring:
     name: pedidos-api
 
   datasource:
-    url: jdbc:postgresql://postgres.railway.internal:5432/railway
-    username: postgres
-    password: JgwkufzEPYWMvcyHTmsBmrMrLLlkGvmy
+    url: ${DB_URL}
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
     driver-class-name: org.postgresql.Driver
 
   jpa:
