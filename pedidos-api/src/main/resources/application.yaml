@@ -3,9 +3,9 @@ spring:
     name: pedidos-api
 
   datasource:
-    url: ${SPRING_DATASOURCE_URL}
-    username: ${SPRING_DATASOURCE_USERNAME}
-    password: ${SPRING_DATASOURCE_PASSWORD}
+    url: jdbc:postgresql://localhost:5432/pedidos-api
+    username: postgres
+    password: 123456
     driver-class-name: org.postgresql.Driver
 
   jpa:
