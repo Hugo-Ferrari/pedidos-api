@@ -1,29 +1,49 @@
-# Pedidos API
+#  Pedidos API
 
-API REST para gerenciamento de pedidos desenvolvida com Java e Spring Boot.
+API REST para gerenciamento de pedidos — usuários, produtos e pedidos com múltiplos itens.
 
-## Tecnologias
+![Java](https://img.shields.io/badge/Java-21-orange)
+![Spring Boot](https://img.shields.io/badge/Spring%20Boot-4-green)
+![Spring Security](https://img.shields.io/badge/Spring%20Security-JWT-blue)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-blue)
+![Swagger](https://img.shields.io/badge/Swagger-OpenAPI%203-green)
 
-- Java 21
-- Spring Boot 4
-- Spring Data JPA
-- PostgreSQL
-- Spring Security + JWT
-- Swagger (OpenAPI 3)
-- Maven
-- Lombok
+---
 
-## Funcionalidades
+##  Índice
 
-- Cadastro e login de usuários com autenticação JWT
-- CRUD completo de produtos com soft delete
-- Sistema de pedidos com múltiplos itens
-- Cálculo automático do total do pedido
-- Preço capturado no momento da compra
-- Rotas protegidas por token JWT
-- Documentação automática com Swagger
+- [Sobre o Projeto](#sobre-o-projeto)
+- [Tecnologias](#tecnologias)
+- [Como Rodar](#como-rodar)
+- [Endpoints](#endpoints)
 
-## Como rodar localmente
+---
+
+##  Sobre o Projeto
+
+API desenvolvida para gerenciar um sistema de pedidos, permitindo o cadastro de usuários,
+produtos e pedidos com múltiplos itens. O sistema conta com autenticação JWT,
+soft delete de produtos e usuários, cálculo automático do total do pedido,
+preço capturado no momento da compra e documentação automática via Swagger.
+
+---
+
+##  Tecnologias
+
+- **Java 21** — versão LTS da linguagem
+- **Spring Boot 4** — framework principal para criação da API
+- **Spring Security + JWT** — autenticação e autorização com token
+- **Spring Data JPA + Hibernate** — mapeamento objeto-relacional
+- **PostgreSQL** — banco de dados relacional em produção
+- **Swagger / OpenAPI 3** — documentação interativa da API
+- **Maven** — gerenciador de dependências
+- **Lombok** — redução de boilerplate
+
+---
+
+---
+
+##  Como Rodar
 
 ### Pré-requisitos
 - Java 21+
@@ -33,50 +53,71 @@ API REST para gerenciamento de pedidos desenvolvida com Java e Spring Boot.
 ### Configuração do banco de dados
 
 Crie um banco de dados no PostgreSQL:
-   CREATE DATABASE pedidos_api;
+```sql
+CREATE DATABASE pedidos_api;
+```
 
-Configure as credenciais no arquivo src/main/resources/application.yml:
-   spring:
-     datasource:
-       url: jdbc:postgresql://localhost:5432/pedidos-api
-       username: postgres
-       password: sua_senha
+Configure as credenciais em `src/main/resources/application.yml`:
+```yaml
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/pedidos-api
+    username: postgres
+    password: sua_senha
+```
 
 ### Passos
 
-1. Clone o repositório
-   git clone https://github.com/Hugo-Ferrari/pedidos-api.git
+```bash
+# Clone o repositório
+git clone https://github.com/Hugo-Ferrari/pedidos-api.git
 
-2. Entre na pasta
-   cd pedidos-api
+# Entre na pasta
+cd pedidos-api
 
-3. Configure o banco de dados conforme instruções acima
+# Rode o projeto
+./mvnw spring-boot:run
+```
 
-4. Rode o projeto
-   ./mvnw spring-boot:run
+Acesse a documentação em: `http://localhost:8080/swagger-ui/index.html`
 
-5. Acesse a documentação
-   http://localhost:8080/swagger-ui/index.html
+---
 
-## Endpoints
+##  Endpoints
 
-### Usuários
-- POST /users/auth/register — cadastrar usuário
-- POST /users/auth/login — retorna token JWT
-- GET /users — listar usuários (autenticado)
-- DELETE /users/{id} — soft delete (autenticado)
+###  Autenticação
 
-### Produtos
-- POST /products — criar produto (autenticado)
-- GET /products — listar produtos ativos (autenticado)
-- PUT /products/{id} — atualizar completo (autenticado)
-- PATCH /products/{id} — atualizar parcial (autenticado)
-- DELETE /products/{id} — soft delete (autenticado)
+| Método | Endpoint | Descrição | Auth |
+|--------|----------|-----------|------|
+| POST | /users/auth/register | Cadastrar usuário | ❌ |
+| POST | /users/auth/login | Login e obter token JWT | ❌ |
 
-### Pedidos
-- POST /orders — criar pedido (autenticado)
-- GET /orders — listar pedidos (autenticado)
+###  Usuários
 
-## Autor
+| Método | Endpoint | Descrição | Auth |
+|--------|----------|-----------|------|
+| GET | /users | Listar usuários | ✅ |
+| DELETE | /users/{id} | Soft delete | ✅ |
 
-Hugo Ferrari - [LinkedIn](https://www.linkedin.com/in/hugoferraripires/) - [GitHub](https://github.com/Hugo-Ferrari)
+###  Produtos
+
+| Método | Endpoint | Descrição | Auth |
+|--------|----------|-----------|------|
+| POST | /products | Criar produto | ✅ |
+| GET | /products | Listar produtos ativos | ✅ |
+| PUT | /products/{id} | Atualizar completo | ✅ |
+| PATCH | /products/{id} | Atualizar parcial | ✅ |
+| DELETE | /products/{id} | Soft delete | ✅ |
+
+###  Pedidos
+
+| Método | Endpoint | Descrição | Auth |
+|--------|----------|-----------|------|
+| POST | /orders | Criar pedido | ✅ |
+| GET | /orders | Listar pedidos | ✅ |
+
+---
+
+##  Autor
+
+Hugo Ferrari — [LinkedIn](https://www.linkedin.com/in/hugoferraripires/) — [GitHub](https://github.com/Hugo-Ferrari)
