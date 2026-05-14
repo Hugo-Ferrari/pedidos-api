@@ -79,7 +79,7 @@ cd pedidos-api
 ./mvnw spring-boot:run
 ```
 
-Acesse a documentação em: `http://localhost:8080/swagger-ui/index.html`
+Acesse a documentação em:http://localhost:8080/swagger-ui/index.html
 
 ---
 
