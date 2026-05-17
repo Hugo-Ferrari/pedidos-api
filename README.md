@@ -127,6 +127,6 @@ spring:
 
 ---
 
-## 👤 Autor
+##  Autor
 
 Hugo Ferrari — [LinkedIn](https://www.linkedin.com/in/hugoferraripires/) — [GitHub](https://github.com/Hugo-Ferrari)
